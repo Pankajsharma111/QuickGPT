@@ -75,7 +75,7 @@ export const purchasePlan = async (req, res) => {
     });
 
     const { origin } = req.headers;
-
+    const cleanOrigin = origin.endsWith("/") ? origin.slice(0, -1) : origin;
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -90,8 +90,8 @@ export const purchasePlan = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `${origin}/loading`,
-      cancel_url: `${origin}`,
+      success_url: `${cleanOrigin}/loading`,
+      cancel_url: `${cleanOrigin}`,
       metadata: {
         transactionId: transaction._id.toString(),
         appId: "quickgpt",

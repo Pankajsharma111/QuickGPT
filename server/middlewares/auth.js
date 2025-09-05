@@ -6,11 +6,8 @@ export const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decoded);
     const userId = decoded.id;
-    console.log(userId);
     const user = await User.findById(userId);
-    console.log(user);
     if (!user) {
       return res.json({
         success: false,

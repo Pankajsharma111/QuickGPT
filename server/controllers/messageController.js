@@ -67,7 +67,7 @@ export const imageMessageController = async (req, res) => {
       });
     }
     const { prompt, chatId, isPublished } = req.body;
-
+    
     // Find chat
     const chat = await Chat.findOne({ userId, _id: chatId });
 
